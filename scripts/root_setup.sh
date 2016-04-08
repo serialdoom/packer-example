@@ -19,6 +19,13 @@ cp /etc/sudoers /etc/sudoers.orig
 sed -i -e '/Defaults\s\+env_reset/a Defaults\texempt_group=admin' /etc/sudoers
 sed -i -e 's/%admin ALL=(ALL) ALL/%admin ALL=NOPASSWD:ALL/g' /etc/sudoers
 
+
+# install guest additions
+mkdir /mnt/iso
+mount -t iso9660 VBoxGuestAdditions_5.0.14.iso /mnt/iso/
+/mnt/iso/VBoxLinuxAdditions.run || echo "vbox failed ($?)"
+umount /mnt/iso
+
 #Install Redis
 #sudo apt-get -y -q install libjemalloc1
 #wget -q http://d7jrzzvab3wte.cloudfront.net/checkbot/deb/redis-server_2.6.13-1_amd64.deb
