@@ -65,6 +65,10 @@
         "scripts/setup.sh"
       ],
       "type": "shell"
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "/etc/ansible/roles/serialdoom.python/python.yml"
     }
   ]
 }

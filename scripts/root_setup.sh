@@ -23,7 +23,10 @@ sed -i -e 's/%admin ALL=(ALL) ALL/%admin ALL=NOPASSWD:ALL/g' /etc/sudoers
 # install guest additions
 mkdir /mnt/iso
 mount -t iso9660 VBoxGuestAdditions_5.0.14.iso /mnt/iso/
-/mnt/iso/VBoxLinuxAdditions.run || echo "vbox failed ($?)"
+/mnt/iso/VBoxLinuxAdditions.run || {
+    echo "vbox failed ($?)"
+    /bin/true
+}
 umount /mnt/iso
 
 #Install Redis
@@ -45,3 +48,4 @@ umount /mnt/iso
 
 # Install ansible
 pip install ansible==1.9.4
+ansible-galaxy install serialdoom.python
