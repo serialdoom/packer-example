@@ -48,4 +48,4 @@ umount /mnt/iso
 sudo pip install ansible==1.9.4
 sudo ansible-galaxy install DecibelInsight.python
 sudo ansible-playbook /etc/ansible/roles/DecibelInsight.python/python.yml -c local -i 'localhost, '
-sudo rm -rf /vagrant/.ansible
+sudo rm -rf /home/vagrant/.ansible
