@@ -47,3 +47,6 @@ umount /mnt/iso
 pip install ansible==1.9.4
 mkdir /etc/ansible
 chown vagrant:vagrant -R /etc/ansible
+/etc/init.d/apparmor stop
+sudo update-rc.d -f apparmor remove
+sudo apt-get --purge remove apparmor apparmor-utils libapparmor-perl libapparmor1
