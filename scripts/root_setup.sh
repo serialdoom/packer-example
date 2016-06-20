@@ -5,6 +5,7 @@ set -e
 # Updating and Upgrading dependencies
 sudo apt-get update -y -qq > /dev/null
 sudo apt-get upgrade -y -qq > /dev/null
+sudo apt-get install -y build-essential libssl-dev libffi-dev python-dev
 
 # Install necessary libraries for guest additions and Vagrant NFS Share
 sudo apt-get -y -q install linux-headers-$(uname -r) build-essential dkms nfs-common python-pip python-dev git
@@ -22,8 +23,8 @@ sed -i -e 's/%admin ALL=(ALL) ALL/%admin ALL=NOPASSWD:ALL/g' /etc/sudoers
 
 # install guest additions
 mkdir /mnt/iso
-mount -t iso9660 VBoxGuestAdditions_5.0.14.iso /mnt/iso/
-/mnt/iso/VBoxLinuxAdditions.run || echo "vbox failed ($?)"
+mount -t iso9660 VBoxGuestAdditions_*.iso /mnt/iso/
+/mnt/iso/VBoxLinuxAdditions.run || /bin/true
 umount /mnt/iso
 
 #Install Redis
@@ -44,9 +45,12 @@ umount /mnt/iso
 #sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'test';"
 
 # Install ansible
-pip install ansible==1.9.4
 mkdir /etc/ansible
 chown vagrant:vagrant -R /etc/ansible
+sudo pip install ansible==1.9.4
+sudo ansible-galaxy install DecibelInsight.python
+sudo ansible-playbook /etc/ansible/roles/DecibelInsight.python/python.yml -c local -i 'localhost, '
+sudo rm -rf /home/vagrant/.ansible
 /etc/init.d/apparmor stop
 sudo update-rc.d -f apparmor remove
 sudo apt-get --purge remove apparmor apparmor-utils libapparmor-perl libapparmor1
