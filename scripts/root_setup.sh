@@ -45,3 +45,5 @@ umount /mnt/iso
 
 # Install ansible
 pip install ansible==1.9.4
+mkdir /etc/ansible
+chown vagrant:vagrant -R /etc/ansible
