@@ -53,4 +53,4 @@ sudo ansible-playbook /etc/ansible/roles/DecibelInsight.python/python.yml -c loc
 sudo rm -rf /home/vagrant/.ansible
 /etc/init.d/apparmor stop
 sudo update-rc.d -f apparmor remove
-sudo apt-get --purge remove apparmor apparmor-utils libapparmor-perl libapparmor1
+sudo apt-get --purge remove -y apparmor apparmor-utils libapparmor-perl libapparmor1
